@@ -9,5 +9,5 @@ La seguente è la mia soluzione per la creazione del gioco "Master Mind", per co
 Nella creazione della logica del gioco con JS ho utilizzato alcune funzionalità dello standard ES6, come le keyword "let" e "const" e le "arrow function".
 Inoltre ho creato delle funzioni per rendere il codice del gioco più leggibile e meno ripetitivo.
 
-- Il file con la logica del gioco può essere trovato al seguente file path: ./public/javascript/
+- Il file con la logica del gioco può essere trovato al seguente file path: ./public/javascripts/
 - Il link per la pagina web è: https://aqueous-retreat-78200.herokuapp.com/
