@@ -5,19 +5,20 @@
           <div class="col-xs-10 play-div">
             <h1><%= title %></h1>
             <p class="displaySolution">Quando sei pronto clicca il pulsante per iniziare</p>
-            <a id="play" class="btn btn-dark">PLAY</a>
+            <a id="easy" class="btn btn-outline-dark">Easy</a>
+            <a id="hard" class="btn btn-outline-dark">Hard</a>
           </div>
         </div>
         <div class="row justify-content-center">
           <div id="gameFace" class="jumbotron game-hide col-md-6 col-xs-10">
             <h4>Salve, giocatore!</h4>
-            <p class="description">Conosci il gioco Master Mind? Consiste nel cercare di dedurre per tentativi un codice segreto di tre cifre da 0-9 e in ogni turno puoi fare un tentativo proponendo una sequenza di tre cifre se la sequenza proposta ad un turno corrisponde al codice segreto allora hai vinto.
+            <p class="description">Conosci il gioco Master Mind? Consiste nel cercare di dedurre per tentativi un codice segreto di cifre (3 cifre nella modalità easy e 6 in quella hard) da 0-9 e in ogni turno puoi fare un tentativo proponendo una sequenza di cifre, se la sequenza proposta ad un turno corrisponde al codice segreto allora hai vinto.
             In qualsiasi momento puoi arrenderti e in quel caso ti viene rivelata la combinazione segreta</p>
             <hr class="my-4">
             <p class="successMessage"></p>
             <p class="errorMessage"></p>
             <div class="input-group mb-3 gameInput">
-              <input type="text" id="userCode" class="form-control" placeholder="Inserisci il codice di tre cifre">
+              <input type="text" id="userCode" class="form-control" placeholder="Inserisci il codice segreto">
               <div class="input-group-append">
                 <button id="gameButton" class="btn btn-outline-secondary" type="button">Invia</button>
               </div>

@@ -5,9 +5,9 @@
 
 // DICHIARAZIONE DELLE FUNZIONI =========================================================================
 // Genera una combinazione di tre numeri casuali da 1 a 9 incluso, ritornando un vettore coi tre numeri
-const codeGenerator = () => {
+const codeGenerator = (numsOfDigits) => {
   let code = []; // Creo un vettore vuoto dove inserire i tre numeri
-  for(let i = 0; i < 3; i++){ // Tramite un for loop inserisco i tre numeri nel vettore
+  for(let i = 0; i < numsOfDigits; i++){ // Tramite un for loop inserisco i tre numeri nel vettore
     code.push(Math.floor(Math.random() * (9 - 0) + 1)); // Genera numeri casuali da 1 a 9
   }
   return code; // Ritorna il vettore coi tre numeri all'interno
@@ -15,8 +15,8 @@ const codeGenerator = () => {
 
 // Controlla se i tre numeri proposti dall'utente combaciano con quelli generati automaticamente
 // La funzione accetta due parametri: i numeri dell'user e quelli generati dal programma
-const checkResult = (playerGuess, solution) => {
-  for(let i = 0; i < 3; i++){ // tramite un loop controllo ogni numbero della serie
+const checkResult = (playerGuess, solution, numsOfDigits) => {
+  for(let i = 0; i < numsOfDigits; i++){ // tramite un loop controllo ogni numbero della serie
     if(playerGuess[i] !== solution[i]){ //se anche un solo numero è diverso la funzione ritorna falso
       return false;
     }
@@ -27,9 +27,9 @@ const checkResult = (playerGuess, solution) => {
 
 // Controlla quanti numeri il giocatore ha indovinato e se questi erano nella posizione giusta (aka. "Numero giusto posizione giusta")
 // La funzione accetta due parametri: i numeri dell'user e quelli generati dal programma
-const numsAndPosition = (playerGuess, solution) => {
+const numsAndPosition = (playerGuess, solution, numsOfDigits) => {
   let numsCount = 0; // Crea un contatore
-  for(let i = 0; i < 3; i++){ // Tramite for loop accedo ad ogni numero nella serie
+  for(let i = 0; i < numsOfDigits; i++){ // Tramite for loop accedo ad ogni numero nella serie
     if(playerGuess[i] === solution[i]){ // Se l' i-esimo numero della serie del giocatore combacia con quella del computer
       numsCount++; // Allora incrementa il contatore
     }
@@ -39,14 +39,14 @@ const numsAndPosition = (playerGuess, solution) => {
 
 // Controlla quanti numeri il giocatore ha indovinato e se questi erano nella posizione sbagliata (aka. "Numero giusto posizione sbagliata")
 // La funzione accetta due parametri: i numeri dell'user e quelli generati dal programma
-const wrongPosition = (playerGuess, solution) => {
+const wrongPosition = (playerGuess, solution, numsOfDigits) => {
   let numsCount = 0;
   //Controlla quanti numeri sono nella posizione giusta
-  let rightPlaceCount = numsAndPosition(playerGuess, solution);
+  let rightPlaceCount = numsAndPosition(playerGuess, solution, numsOfDigits);
   //Controlla quanti numeri il giocatore ha indovinato (independetemente dalla posizione);
   let rightNumsCount = 0;
-  for(let i = 0; i < 3; i++){
-    for(let j = 0; j < 3; j++){
+  for(let i = 0; i < numsOfDigits; i++){
+    for(let j = 0; j < numsOfDigits; j++){
       if(playerGuess[i] === solution[j]){
         rightNumsCount++;
       }
@@ -57,13 +57,13 @@ const wrongPosition = (playerGuess, solution) => {
 };
 
 // 5) Prendere e controllare l'input del giocatore
-const getInput = () => {
+const getInput = (numsOfDigits) => {
   // Utilizzo un while loop per ottenere l'input del giocatore e verificare che sia corretto
   // Prova ad ottenere l'input dal giocatore
   let userGuess = $('#userCode').val();
   // Se il giocatore inserisce un numero più piccolo o più grande di tre numeri il loop ricomincia
-  if(userGuess.length !== 3){
-    alert('Errore! Devi inserire tre numeri!'); //E un errore viene mostrato
+  if(userGuess.length !== numsOfDigits){
+    alert('Errore! Devi inserire ' + numsOfDigits + ' numeri!'); //E un errore viene mostrato
     return false;
   }
   // Se il giocatore non inserisce dei numeri il loop ricomincia
@@ -79,35 +79,46 @@ const getInput = () => {
   return userSolution; //E la funzione ritorna la proposta del giocatore sotto forma di vettore
 }
 
-// INIZIO DEL GIOCO ============================================================
-// Variabili dichiarate esternamente per avere uno "scope" globale
-let computerChoice;
-let errorMessage = $('.errorMessage');
-let successMessage = $('.successMessage');
-
-// Un evento viene legato al pulsante per iniziare a giocare
-$('#play').click( () => {
+// Funzione di setup che viene invocata ogni volta che il giocatore clicca il pulsante per giocare
+const gameSetup = () => {
   // Il div che contiene le funzionalità del gioco viene mostrato
   $('#gameFace').css('display', 'block');
   // La funzione genere il codice casuale di tre cifre
-  computerChoice = codeGenerator();
+  computerChoice = codeGenerator(numsOfDigits);
   // Ogni possibile messaggio o gruppo di input relativi alla partita precedente viene eliminato
   successMessage.css("display", "none");
   errorMessage.css("display", "none");
   $('.btn-group').css('display', 'none');
   // L'input viene mostrato e il giocatore può inserire la sua soluzione
   $('.gameInput').css('display', 'flex');
+}
+
+// INIZIO DEL GIOCO ============================================================
+// Variabili dichiarate esternamente per avere uno "scope" globale
+let computerChoice;
+let errorMessage = $('.errorMessage');
+let successMessage = $('.successMessage');
+let numsOfDigits;
+
+$('#easy').click( () => {
+  numsOfDigits = 3;
+  gameSetup();
+});
+
+$('#hard').click( () => {
+  numsOfDigits = 6;
+  gameSetup();
 });
 
 // Un funzione inizia se il giocatore invia un input
 $('#gameButton').click( () => {
   // La funzione prende in input il codice del giocatore e ne verifica la correttezza
-  let userChoice = getInput();
+  let userChoice = getInput(numsOfDigits);
   // Se c'è un errore nell'input un alert viene mostrato e la funzione si arresta qui
   if(userChoice === false)
     return;
   // Altrimenti la scelta del giocatore viene comparata con il codice del programma
-  let result = checkResult(userChoice, computerChoice);
+  let result = checkResult(userChoice, computerChoice, numsOfDigits);
 
   // Se il giocatore indovina
   if(result){
@@ -128,8 +139,8 @@ $('#gameButton').click( () => {
     // Un evento viene legato alla risposta positiva
     $('.btn-success').click(() => {
       // I numeri e le posizioni corrette vengono valutate tramite le due funzioni
-      let rightPlaceNums = numsAndPosition(userChoice, computerChoice);
-      let wrongPlaceNums = wrongPosition(userChoice, computerChoice);
+      let rightPlaceNums = numsAndPosition(userChoice, computerChoice, numsOfDigits);
+      let wrongPlaceNums = wrongPosition(userChoice, computerChoice, numsOfDigits);
       // Ogni possibile messaggio precedente viene nascosto
       errorMessage.css("display", "none");
       // E al giocatore vengono forniti i due indizi

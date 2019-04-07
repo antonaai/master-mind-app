@@ -3,16 +3,18 @@
     <div class="container">
       <div class="jumbotron about-jumbo">
         <h1 class="display-4"><%= title%></h1>
-        <p class="lead">Conosci il gioco Master Mind? Consiste nel cercare di dedurre per tentativi un codice segreto.
-          Ecco come funziona:
-          ad ogni partita bisogna scoprire un codice che consiste in una sequenza di tre cifre da 0-9
-          e in ogni turno puoi fare un tentativo proponendo una sequenza di tre cifre
-          se la sequenza proposta ad un turno corrisponde al codice segreto allora hai vinto
-          altrimenti ottieni due indizi:
-          il numero di cifre che hai indovinato essere nel codice segreto ma che hai collocato in una posizione errata della sequenza (aka “numero giusto posto sbagliato”)
-          il numero di cifre che hai indovinato essere nel codice segreto e che sono anche nel posto giusto della sequenza (aka “numero giusto posto giusto”)
-          in qualsiasi momento puoi arrenderti e in quel caso ti viene rivelata la combinazione segreta.</p>
-      </div>
+          <p class="lead">
+            Conosci il gioco Master Mind? Consiste nel cercare di dedurre per tentativi un codice segreto. Ecco come funziona: ad ogni partita bisogna scoprire un codice che consiste in una sequenza di cifre (3 nella modalità Easy, 6 in quella Hard) da 0-9 e in ogni turno puoi fare un tentativo proponendo una sequenza di tre cifre se la sequenza proposta ad un turno corrisponde al codice segreto allora hai vinto altrimenti ottieni due indizi:
+          </p>
+          <ol>
+            <li>
+              il numero di cifre che hai indovinato essere nel codice segreto ma che hai collocato in una posizione errata della sequenza (aka “numero giusto posto sbagliato”);
+            </li>
+            <li>
+              il numero di cifre che hai indovinato essere nel codice segreto e che sono anche nel posto giusto della sequenza (aka “numero giusto posto giusto”);
+            </li>
+          </ol>
+          <p class="lead">In qualsiasi momento puoi arrenderti e in quel caso ti viene rivelata la combinazione segreta.</p>
     </div>
   </div>
 <% include ./partials/footer %>
