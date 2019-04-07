@@ -4,17 +4,17 @@
 // Ho deciso di creare diverse funzioni da implementare in seguito nella scrittura del gioco, al fine di migliore la leggibilità del codice ed evitare la ripetizioni di codici.
 
 // DICHIARAZIONE DELLE FUNZIONI =========================================================================
-// Genera una combinazione di tre numeri casuali da 1 a 9 incluso, ritornando un vettore coi tre numeri
+// Genera una combinazione di numsOfDigits numeri casuali da 1 a 9 incluso, ritornando un vettore col numero di cifre specificato
 const codeGenerator = (numsOfDigits) => {
-  let code = []; // Creo un vettore vuoto dove inserire i tre numeri
-  for(let i = 0; i < numsOfDigits; i++){ // Tramite un for loop inserisco i tre numeri nel vettore
+  let code = []; // Creo un vettore vuoto dove inserire le cifre
+  for(let i = 0; i < numsOfDigits; i++){ // Tramite un for loop inserisco i numeri nel vettore
     code.push(Math.floor(Math.random() * (9 - 0) + 1)); // Genera numeri casuali da 1 a 9
   }
-  return code; // Ritorna il vettore coi tre numeri all'interno
+  return code; // Ritorna il vettore coi numeri all'interno
 };
 
-// Controlla se i tre numeri proposti dall'utente combaciano con quelli generati automaticamente
-// La funzione accetta due parametri: i numeri dell'user e quelli generati dal programma
+// Controlla se i numeri proposti dall'utente combaciano con quelli generati automaticamente
+// La funzione accetta tre parametri: i numeri dell'user e quelli generati dal programma e il numero di cifre di cui è composto il codice
 const checkResult = (playerGuess, solution, numsOfDigits) => {
   for(let i = 0; i < numsOfDigits; i++){ // tramite un loop controllo ogni numbero della serie
     if(playerGuess[i] !== solution[i]){ //se anche un solo numero è diverso la funzione ritorna falso
@@ -26,7 +26,7 @@ const checkResult = (playerGuess, solution, numsOfDigits) => {
 };
 
 // Controlla quanti numeri il giocatore ha indovinato e se questi erano nella posizione giusta (aka. "Numero giusto posizione giusta")
-// La funzione accetta due parametri: i numeri dell'user e quelli generati dal programma
+// La funzione accetta tre parametri: i numeri dell'user e quelli generati dal programma e il numero di cifre di cui è composto il codice
 const numsAndPosition = (playerGuess, solution, numsOfDigits) => {
   let numsCount = 0; // Crea un contatore
   for(let i = 0; i < numsOfDigits; i++){ // Tramite for loop accedo ad ogni numero nella serie
@@ -38,7 +38,7 @@ const numsAndPosition = (playerGuess, solution, numsOfDigits) => {
 };
 
 // Controlla quanti numeri il giocatore ha indovinato e se questi erano nella posizione sbagliata (aka. "Numero giusto posizione sbagliata")
-// La funzione accetta due parametri: i numeri dell'user e quelli generati dal programma
+// La funzione accetta tre parametri: i numeri dell'user e quelli generati dal programma e il numero di cifre di cui è composto il codice
 const wrongPosition = (playerGuess, solution, numsOfDigits) => {
   let numsCount = 0;
   //Controlla quanti numeri sono nella posizione giusta
@@ -61,7 +61,7 @@ const getInput = (numsOfDigits) => {
   // Utilizzo un while loop per ottenere l'input del giocatore e verificare che sia corretto
   // Prova ad ottenere l'input dal giocatore
   let userGuess = $('#userCode').val();
-  // Se il giocatore inserisce un numero più piccolo o più grande di tre numeri il loop ricomincia
+  // Se il giocatore inserisce troppi numeri il loop ricomincia
   if(userGuess.length !== numsOfDigits){
     alert('Errore! Devi inserire ' + numsOfDigits + ' numeri!'); //E un errore viene mostrato
     return false;
@@ -83,7 +83,7 @@ const getInput = (numsOfDigits) => {
 const gameSetup = () => {
   // Il div che contiene le funzionalità del gioco viene mostrato
   $('#gameFace').css('display', 'block');
-  // La funzione genere il codice casuale di tre cifre
+  // La funzione genere il codice casuale
   computerChoice = codeGenerator(numsOfDigits);
   // Ogni possibile messaggio o gruppo di input relativi alla partita precedente viene eliminato
   successMessage.css("display", "none");
