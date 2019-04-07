@@ -1,0 +1,66 @@
+.wallpaper {
+  background-image: url("https://images.pexels.com/photos/1111597/pexels-photo-1111597.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background-position: center;
+  background-repeat: repeat-y;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+}
+
+.top-row{
+  color: white;
+  padding-top: 25%;
+  width: 100%;
+}
+
+.about-row {
+  padding-top: 10%;
+  width: 100%;
+}
+
+.play-div {
+  text-align: center;
+}
+
+.play-div h1 {
+  font-size: 4rem;
+}
+
+.play-div a, .play-div p{
+  font-size: 1.5rem;
+}
+
+.game-hide {
+  position: absolute;
+  color: black;
+  top: 15%;
+  display: none;
+}
+
+.jumbotron p {
+  font-size: 0.85rem;
+}
+
+.about-jumbo p {
+  font-size: 1.1rem;
+  font-weight: normal;
+}
+
+.displaySolution {
+  font-weight: bold;
+  color: #dee2e6;
+}
+
+.errorMessage {
+  color: red;
+  display: none;
+}
+
+.successMessage {
+  color: green;
+  display: none;
+}
+
+.btn-group {
+  display: none;
+}
